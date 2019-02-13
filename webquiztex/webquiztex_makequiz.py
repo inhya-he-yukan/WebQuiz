@@ -350,6 +350,10 @@ class MakeWebQuiz(object):
                     quiz_specs.write('onePage = true;\n')
                 if self.quiz.random_order:
                     quiz_specs.write('shuffleQuestions();\n')
+                if self.quiz.save_state:
+                    quiz_specs.write('chosenStorage=localStorage;\n')
+                else:
+                    quiz_specs.write('chosenStorage=sessionStorage;\n')
                 quiz_specs.write('initSession();\n')
                 if self.number_discussions+self.number_questions>0:
                     quiz_specs.write('gotoQuestion({});'.format(

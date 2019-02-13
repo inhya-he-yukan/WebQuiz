@@ -149,7 +149,7 @@ class QuizHandler(xml.sax.ContentHandler):
             self.set_default_attribute(key, attributes.get(key))
 
         # convert the following attibutes to booleans
-        for key in ['debugging', 'hide_side_menu', 'one_page', 'pst2pdf', 'random_order']:
+        for key in ['debugging', 'hide_side_menu', 'one_page', 'pst2pdf', 'random_order', 'save_state']:
             setattr(self, key, getattr(self, key)=='true')
 
         setattr(self, 'language', self.language.lower())
