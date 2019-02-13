@@ -52,7 +52,7 @@
     randomorder value/.initial = DeFaUlT,
     % savestate
     savestate/.style           = {savestate value=true},
-    savestate value/.initial   = false,
+    savestate value/.initial   = DeFaUlT,
     % theme
     theme/.initial             = DeFaUlT,
     % tikz
