@@ -19,7 +19,8 @@ var correct = [];           // questions answered correctly
 var buttonOrder = [];       // map from button number to question number
 var questionOrder = [];     // map from question number to button number
 var wrongAnswers = [];      // questions answered incorrectly
-
+var chosenStorage;
+var pathName="";
 
 var currentB;               // current button number
 var currentFeedback = null; // feedback currently being displayed
@@ -60,8 +61,8 @@ var tick = {
 
 function markAnswer() {
   if (typeof(Storage) !== "undefined") {
-    sessionStorage.correct = JSON.stringify(correct);
-    sessionStorage.wrongAnswers = JSON.stringify(wrongAnswers);
+    chosenStorage.setItem(pathName + ":correct",JSON.stringify(correct));
+    chosenStorage.setItem(pathName + ":wrongAnswers",JSON.stringify(wrongAnswers));
   }
 }
 
@@ -358,10 +359,10 @@ function shuffleQuestions() {
 // Restores the state of the question markers from the session storage
 function initSession() {
     if (typeof(Storage) !== "undefined") {
-      if (sessionStorage.correct)
-        correct = JSON.parse(sessionStorage.correct);
-      if (sessionStorage.wrongAnswers)
-        wrongAnswers = JSON.parse(sessionStorage.wrongAnswers);
+      if (chosenStorage.getItem(pathName + ":correct"))
+        correct = JSON.parse(chosenStorage.getItem(pathName + ":correct"));
+      if (chosenStorage.getItem(pathName + ":wrongAnswers"))
+        wrongAnswers = JSON.parse(chosenStorage.getItem(pathName + ":wrongAnswers"));
     }
 
     for (i = 0; i < qTotal+1; i++) {
@@ -376,6 +377,8 @@ function initSession() {
 // initialise the quiz, loading specifications and setting up the first question
 function WebQuizInit(questions, discussions, quizfile) {
     // process init options
+
+    pathName = window.location.pathname;
 
     // callback for browser history events
     window.addEventListener('popstate', function(e) {

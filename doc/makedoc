@@ -72,7 +72,7 @@ function make_examples() {
 function make_languages() {
   message "Generating list of WebQuiz supported languages"
   cd $WebQuizDir/latex
-  LANG=$(ls -1 webquiz-*.lang | xargs | sed 's@webquiz-@@g' | gsed -e 's@\([a-z]*\).lang@\u\1,@g' | sed 's@, \([A-Za-z]*\),$@,, \1@')
+  LANG=$(ls -1 webquiz-*.lang | xargs | sed 's@webquiz-@@g' | sed -e 's@\([a-z]*\).lang@\u\1,@g' | sed 's@, \([A-Za-z]*\),$@,, \1@')
   cd $WebQuizDir/doc
   LANGS="webquiz.languages"
   /bin/rm -f $LANGS

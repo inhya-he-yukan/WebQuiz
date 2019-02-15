@@ -172,6 +172,11 @@ class WebQuizSettings:
             'advanced': False,
             'help': 'Randomly order the quiz questions',
         },
+        save_state={
+            'default': 'false',
+            'advanced': False,
+            'help': 'Save the the state of answered questions permanently',
+        },
         webquiz_layout={
             'default': 'webquiz_layout',
             'advanced': True,
