@@ -20,7 +20,8 @@ var buttonOrder = [];       // map from button number to question number
 var questionOrder = [];     // map from question number to button number
 var wrongAnswers = [];      // questions answered incorrectly
 var chosenStorage;
-var pathName="";
+var pathNameDate="";        // stores path name + last modified date to
+                            // uniquely identify quiz and version
 
 var currentB;               // current button number
 var currentFeedback = null; // feedback currently being displayed
@@ -61,8 +62,8 @@ var tick = {
 
 function markAnswer() {
   if (typeof(Storage) !== "undefined") {
-    chosenStorage.setItem(pathName + ":correct",JSON.stringify(correct));
-    chosenStorage.setItem(pathName + ":wrongAnswers",JSON.stringify(wrongAnswers));
+    chosenStorage.setItem(pathNameDate + ":correct",JSON.stringify(correct));
+    chosenStorage.setItem(pathNameDate + ":wrongAnswers",JSON.stringify(wrongAnswers));
   }
 }
 
@@ -359,10 +360,10 @@ function shuffleQuestions() {
 // Restores the state of the question markers from the session storage
 function initSession() {
     if (typeof(Storage) !== "undefined") {
-      if (chosenStorage.getItem(pathName + ":correct"))
-        correct = JSON.parse(chosenStorage.getItem(pathName + ":correct"));
-      if (chosenStorage.getItem(pathName + ":wrongAnswers"))
-        wrongAnswers = JSON.parse(chosenStorage.getItem(pathName + ":wrongAnswers"));
+      if (chosenStorage.getItem(pathNameDate + ":correct"))
+        correct = JSON.parse(chosenStorage.getItem(pathNameDate + ":correct"));
+      if (chosenStorage.getItem(pathNameDate + ":wrongAnswers"))
+        wrongAnswers = JSON.parse(chosenStorage.getItem(pathNameDate + ":wrongAnswers"));
     }
 
     for (i = 0; i < qTotal+1; i++) {
@@ -378,7 +379,7 @@ function initSession() {
 function WebQuizInit(questions, discussions, quizfile) {
     // process init options
 
-    pathName = window.location.pathname;
+    pathNameDate = window.location.pathname + ":" + document.lastModified;
 
     // callback for browser history events
     window.addEventListener('popstate', function(e) {
